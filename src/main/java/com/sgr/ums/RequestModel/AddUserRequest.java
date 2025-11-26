@@ -1,16 +1,17 @@
 package com.sgr.ums.RequestModel;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 public class AddUserRequest {
 
     @NotBlank(message = "Password is required")
-
+    @Size(min = 8, max = 20, message = "Password must be 8–20 characters long")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).+$",
+            message = "Password must contain uppercase, lowercase, and a number")
     private String password;
 
-    @NotBlank(message = "FirstName is required")
 
+    @NotBlank(message = "FirstName is required")
     private String firstName;
 
     private String middleName;
@@ -18,17 +19,21 @@ public class AddUserRequest {
     @NotBlank(message = "LastName is required")
     private String lastName;
 
+
     @NotBlank(message = "NativeName is required")
     private String nativeName;
 
     @NotNull(message = "Age is required")
-
+    @Min(value = 18, message = "Age must be at least 18")
+    @Max(value = 70, message = "Age must not exceed 70")
     private Integer age;
 
     @NotBlank(message="Address is required")
     private String address;
 
     @NotBlank(message = "PhoneNumber is required")
+    @Pattern(regexp = "^[0-9]{8,15}$",
+            message = "Phone number must be 8–15 digits")
     private String phoneNumber;
 
     @NotBlank(message = "Country is required")
@@ -36,6 +41,7 @@ public class AddUserRequest {
 
 
     @NotBlank(message = "Email is required")
+    @Email(message = "Email format is invalid")
     private String email;
 
 

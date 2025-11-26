@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("Api/Enrollment")
+@RequestMapping("api/v1/enrollment")
 public class EnrollmentController {
 
     @Autowired

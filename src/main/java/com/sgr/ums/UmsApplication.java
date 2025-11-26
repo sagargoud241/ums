@@ -5,9 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class UmsApplication {
-
+   // private static final Logger log = LoggerFactory.getLogger(UmsApplication.class);
 	public static void main(String[] args) {
-		SpringApplication.run(UmsApplication.class, args);
+        SpringApplication.run(UmsApplication.class, args);
+     //   log.info("Application started");
+        //log.warn("Something might be wrong");
+        //log.error("Something failed!", new RuntimeException("Test error"));
 	}
 
 }

@@ -7,6 +7,7 @@ import com.sgr.ums.RequestModel.LoginUserRequest;
 import com.sgr.ums.RequestModel.UpdateUserRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
 import jakarta.validation.Valid;
+import org.jspecify.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -17,5 +18,7 @@ public interface UserService {
     ApiResponse<User> login(@Valid LoginUserRequest request);
     ApiResponse<User>updateUser(UpdateUserRequest request);
     ApiResponse<User>deleteUser(DeleteUserRequest request);
+
+    ApiResponse<User> auth(@Valid LoginUserRequest request);
 }
 
