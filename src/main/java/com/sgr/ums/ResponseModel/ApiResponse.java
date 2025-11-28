@@ -52,6 +52,10 @@ public class ApiResponse <T>{
         return new ApiResponse<>("fail", message, null);
     }
 
+    public static <T> ApiResponse<T> exception(String message) {
+        return new ApiResponse<>("errror", message,null);
+    }
+
 
     // --- Builder Pattern ---
     public static class Builder<T> {

@@ -1,5 +1,6 @@
 package com.sgr.ums.Services;
 
+import com.sgr.ums.Authorization.UserDetail;
 import com.sgr.ums.Entity.Course;
 import com.sgr.ums.Mapper.CourseMapper;
 import com.sgr.ums.Repository.CourseRepository;
@@ -7,15 +8,21 @@ import com.sgr.ums.RequestModel.AddCourseRequest;
 import com.sgr.ums.RequestModel.DeleteCourseRequest;
 import com.sgr.ums.RequestModel.UpdateCourseRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
+import com.sgr.ums.Utilities.JsonUtils;
 import com.sgr.ums.Utilities.Utility;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CourseServiceImpl implements CourseService{
+    private static final Logger log = LoggerFactory.getLogger(CourseServiceImpl.class);
+    @Autowired
+    private UserDetail currentUserUtil;
 
     private final CourseRepository courseRepository;
     public CourseServiceImpl(CourseRepository courseRepository){
@@ -25,13 +32,20 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public ApiResponse<Course> addCourse(AddCourseRequest request) {
-        Course course= CourseMapper.addCourse(request);
-        course.setCreatedBy(Utility.getDefaultUsername());
-        course.setCreatedDate(LocalDateTime.now());
-        course.setActive(true);
-        course.setDeleted(false);
-        courseRepository.save(course);
-        return ApiResponse.success(course, "Add SuccessFully");
+
+        try{
+            log.info("AddCourseRequest request is {}", JsonUtils.toJson(request));
+            Course course= CourseMapper.addCourse(request);
+            course.setCreatedBy(currentUserUtil.getUsername());
+            course.setCreatedDate(LocalDateTime.now());
+            course.setActive(true);
+            course.setDeleted(false);
+            courseRepository.save(course);
+            return ApiResponse.success(course, "Add SuccessFully");
+        } catch (Exception e) {
+            log.error("Exception while add course",e.getMessage());
+            return ApiResponse.exception(e.getMessage());
+        }
     }
 
     @Override

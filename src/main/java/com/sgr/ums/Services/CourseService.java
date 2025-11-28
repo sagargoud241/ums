@@ -5,7 +5,6 @@ import com.sgr.ums.RequestModel.AddCourseRequest;
 import com.sgr.ums.RequestModel.DeleteCourseRequest;
 import com.sgr.ums.RequestModel.UpdateCourseRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
-
 import java.util.List;
 
 public interface CourseService {

@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService{
             log.info("User logged in success");
             String token = jwtUtil.createToken(user);
             log.info("User token is {}",token);
-            return ApiResponse.success(optional.get(), "token is "+ token);
+            return ApiResponse.success(optional.get(), "Bearer "+ token);
         } else {
             return ApiResponse.failure("User not Found");
         }

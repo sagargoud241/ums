@@ -39,28 +39,40 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/api/v1/auth/**").permitAll()
+//
+//                        // Swagger & OpenAPI Access
+//                        .requestMatchers("/v3/api-docs/**").permitAll()
+//                        .requestMatchers("/swagger-ui/**").permitAll()
+//                        .requestMatchers("/swagger-ui.html").permitAll()
+//                        .requestMatchers("/webjars/**").permitAll()
+//                        .requestMatchers("/api/user/**").permitAll()
+//                        .requestMatchers("/api/v1/auth/**").permitAll()
+//                         .requestMatchers("/api/v1/course/**").permitAll()
+//                         .requestMatchers("/api/v1/file/**").permitAll()
+//                         .requestMatchers("/api/v1/file/download/**").permitAll()
+//                         .requestMatchers("/api/v1/document/**").permitAll()
+//
+//                        .anyRequest().authenticated()
+//                )
+//                .sessionManagement(session -> session
+//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                )
+//                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**").permitAll()
-
-                        // Swagger & OpenAPI Access
-                        .requestMatchers("/v3/api-docs/**").permitAll()
-                        .requestMatchers("/swagger-ui/**").permitAll()
-                        .requestMatchers("/swagger-ui.html").permitAll()
-                        .requestMatchers("/webjars/**").permitAll()
-                        .requestMatchers("/api/user/**").permitAll()
-                        .requestMatchers("/api/v1/auth/**").permitAll()
-                         .requestMatchers("/api/v1/course/**").permitAll()
-
-
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()   // <--- EVERYTHING allowed
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
