@@ -187,74 +187,221 @@ public class FileServiceImpl implements FileService {
     }
 
 
-    @Override
+//    @Override
+//    public FileUploadResponse uploadBase64File(String base64, String originalName) throws IOException {
+//
+//        if (originalName == null || originalName.trim().isEmpty()) {
+//            System.out.println("INVALID_NAME");
+//            log.error("INVALID_NAME");
+//            return null;
+//        }
+//
+//        // Extract file extension
+//        String extension = "";
+//        int dotIndex = originalName.lastIndexOf(".");
+//        if (dotIndex != -1) {
+//            extension = originalName.substring(dotIndex + 1);
+//        }
+//
+//        // Create a unique filename
+//        String newFileName = UUID.randomUUID().toString() + "_" + originalName;
+//
+//        // Decode Base64 to bytes
+//        byte[] fileBytes = Base64.getDecoder().decode(base64);
+//
+//        // Ensure directory exists
+//        File directory = new File(basePath);
+//        if (!directory.exists()) {
+//            directory.mkdirs();
+//        }
+//
+//        // Full file path
+//        String fullPath = basePath + newFileName;
+//
+//        // Write bytes to file
+//        try (FileOutputStream fos = new FileOutputStream(fullPath)) {
+//            fos.write(fileBytes);
+//        }
+//
+//        // Get file size
+//        long sizeBytes = fileBytes.length;
+//        String sizeReadable = readableFileSize(sizeBytes);
+//
+//        // Return FileUploadResponse (same structure as Multipart upload)
+//        return new FileUploadResponse(
+//                newFileName,        // new unique filename
+//                extension,          // file extension
+//                sizeBytes,          // size in bytes
+//                sizeReadable,       // size in readable format
+//                "application/octet-stream", // no mime from base64 → default
+//                fullPath,           // saved file full path
+//                originalName        // original client file name
+//        );
+//    }
+
+
     public FileUploadResponse uploadBase64File(String base64, String originalName) throws IOException {
 
         if (originalName == null || originalName.trim().isEmpty()) {
-            System.out.println("INVALID_NAME");
             log.error("INVALID_NAME");
             return null;
         }
 
-        // Extract file extension
+        String mimeType = "application/octet-stream";
         String extension = "";
-        int dotIndex = originalName.lastIndexOf(".");
-        if (dotIndex != -1) {
-            extension = originalName.substring(dotIndex + 1);
+
+        // ---------------------------------------------------
+        // 1. CHECK IF BASE64 HAS DATA URI (example: data:image/png;base64,...)
+        // ---------------------------------------------------
+        if (base64.startsWith("data:")) {
+            // Extract MIME type
+            int mimeStart = base64.indexOf(":") + 1;
+            int mimeEnd = base64.indexOf(";");
+            if (mimeStart > 0 && mimeEnd > mimeStart) {
+                mimeType = base64.substring(mimeStart, mimeEnd);
+            }
+
+            // Extract extension from MIME (e.g. image/png → png)
+            if (mimeType.contains("/")) {
+                extension = mimeType.substring(mimeType.indexOf("/") + 1);
+            }
+
+            // Strip Data URI header
+            base64 = base64.substring(base64.indexOf(",") + 1);
         }
 
-        // Create a unique filename
-        String newFileName = UUID.randomUUID().toString() + "_" + originalName;
+        // ---------------------------------------------------
+        // 2. IF NO EXTENSION FOUND → use original filename
+        // ---------------------------------------------------
+        if (extension.isEmpty()) {
+            int dotIndex = originalName.lastIndexOf(".");
+            if (dotIndex != -1 && dotIndex < originalName.length() - 1) {
+                extension = originalName.substring(dotIndex + 1);
+            }
+        }
 
-        // Decode Base64 to bytes
+        // ---------------------------------------------------
+        // 3. Decode Base64
+        // ---------------------------------------------------
         byte[] fileBytes = Base64.getDecoder().decode(base64);
+
+        // Generate unique filename
+        String newFileName = UUID.randomUUID() + "_" + originalName;
+        if (!extension.isEmpty()) {
+            newFileName = UUID.randomUUID() + "." + extension; // cleaner filename
+        }
 
         // Ensure directory exists
         File directory = new File(basePath);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        if (!directory.exists()) directory.mkdirs();
 
-        // Full file path
         String fullPath = basePath + newFileName;
 
-        // Write bytes to file
         try (FileOutputStream fos = new FileOutputStream(fullPath)) {
             fos.write(fileBytes);
         }
 
-        // Get file size
         long sizeBytes = fileBytes.length;
         String sizeReadable = readableFileSize(sizeBytes);
 
-        // Return FileUploadResponse (same structure as Multipart upload)
+        // ---------------------------------------------------
+        // Response
+        // ---------------------------------------------------
         return new FileUploadResponse(
-                newFileName,        // new unique filename
-                extension,          // file extension
-                sizeBytes,          // size in bytes
-                sizeReadable,       // size in readable format
-                "application/octet-stream", // no mime from base64 → default
-                fullPath,           // saved file full path
-                originalName        // original client file name
+                newFileName,
+                extension,
+                sizeBytes,
+                sizeReadable,
+                mimeType,
+                fullPath,
+                originalName
         );
     }
 
-    @Override
+
+//    public FileUploadResponse uploadBase64File(String base64) throws IOException {
+//
+//        if (base64 == null || base64.trim().isEmpty()) {
+//            System.out.println("EMPTY_BASE64_DATA");
+//            log.error("EMPTY_BASE64_DATA");
+//            return null;
+//        }
+//
+//        // Decode Base64 to bytes
+//        byte[] fileBytes = Base64.getDecoder().decode(base64);
+//
+//        // default extension when no original name is given
+//        String extension = "bin";
+//
+//        // Create unique filename
+//        String newFileName = UUID.randomUUID().toString() + "." + extension;
+//
+//        // Ensure directory exists
+//        File directory = new File(basePath);
+//        if (!directory.exists()) {
+//            directory.mkdirs();
+//        }
+//
+//        // Full file path
+//        String fullPath = basePath + newFileName;
+//
+//        // Save file
+//        try (FileOutputStream fos = new FileOutputStream(fullPath)) {
+//            fos.write(fileBytes);
+//        }
+//
+//        long sizeBytes = fileBytes.length;
+//        String sizeReadable = readableFileSize(sizeBytes);
+//
+//        // Build and return response
+//        return new FileUploadResponse(
+//                newFileName,            // generated new file name
+//                extension,              // extension (default)
+//                sizeBytes,              // size in bytes
+//                sizeReadable,           // human readable size
+//                "application/octet-stream",  // mime type unknown
+//                fullPath,               // location saved
+//                newFileName                    // original file name (none)
+//        );
+//    }
+
     public FileUploadResponse uploadBase64File(String base64) throws IOException {
 
         if (base64 == null || base64.trim().isEmpty()) {
-            System.out.println("EMPTY_BASE64_DATA");
             log.error("EMPTY_BASE64_DATA");
             return null;
         }
 
-        // Decode Base64 to bytes
+        String mimeType = "application/octet-stream";
+        String extension = "bin";    // default extension
+
+        // ---------------------------------------------------
+        // 1. CHECK FOR DATA URI SCHEME (data:image/png;base64,...)
+        // ---------------------------------------------------
+        if (base64.startsWith("data:")) {
+
+            int mimeStart = base64.indexOf(":") + 1;
+            int mimeEnd = base64.indexOf(";");
+
+            if (mimeStart > 0 && mimeEnd > mimeStart) {
+                mimeType = base64.substring(mimeStart, mimeEnd);   // ex: image/png
+            }
+
+            // extract extension: image/png → png
+            if (mimeType.contains("/")) {
+                extension = mimeType.substring(mimeType.indexOf("/") + 1);
+            }
+
+            // strip header from base64
+            base64 = base64.substring(base64.indexOf(",") + 1);
+        }
+
+        // ---------------------------------------------------
+        // 2. Decode Base64
+        // ---------------------------------------------------
         byte[] fileBytes = Base64.getDecoder().decode(base64);
 
-        // default extension when no original name is given
-        String extension = "bin";
-
-        // Create unique filename
+        // Filename with extension
         String newFileName = UUID.randomUUID().toString() + "." + extension;
 
         // Ensure directory exists
@@ -263,7 +410,6 @@ public class FileServiceImpl implements FileService {
             directory.mkdirs();
         }
 
-        // Full file path
         String fullPath = basePath + newFileName;
 
         // Save file
@@ -274,17 +420,17 @@ public class FileServiceImpl implements FileService {
         long sizeBytes = fileBytes.length;
         String sizeReadable = readableFileSize(sizeBytes);
 
-        // Build and return response
         return new FileUploadResponse(
-                newFileName,            // generated new file name
-                extension,              // extension (default)
-                sizeBytes,              // size in bytes
-                sizeReadable,           // human readable size
-                "application/octet-stream",  // mime type unknown
-                fullPath,               // location saved
-                newFileName                    // original file name (none)
+                newFileName,         // generated file name
+                extension,           // detected or default extension
+                sizeBytes,           // size bytes
+                sizeReadable,        // readable format size
+                mimeType,            // mime type (detected or default)
+                fullPath,            // stored path
+                newFileName          // no original name available
         );
     }
+
 
 }
 

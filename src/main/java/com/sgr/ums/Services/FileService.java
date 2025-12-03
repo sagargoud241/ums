@@ -18,5 +18,4 @@ public interface FileService {
 
     FileUploadResponse uploadBase64File(String base64, String originalName) throws IOException;
 
-    FileUploadResponse uploadBase64File(String base64) throws IOException;
 }

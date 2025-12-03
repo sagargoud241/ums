@@ -1,10 +1,12 @@
 package com.sgr.ums.RequestModel;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class UpdateCourseRequest {
 
-    @NotBlank(message = "Id is required")
+    @NotNull(message = "Id is required")
     private Long id;
 
     @NotBlank(message = "Title is required")
@@ -13,12 +15,13 @@ public class UpdateCourseRequest {
     @NotBlank(message = "Description is Required ")
     private String description;
 
-    @NotBlank(message = "CreditHours is Required")
+    @NotNull(message = "CreditHours is required")
+    @Min(value = 1, message = "CreditHours must be at least 1")
     private Integer creditHours;
 
     //getter
 
-    public @NotBlank(message = "CreditHours is Required") Integer getCreditHours() {
+    public @NotNull(message = "CreditHours is Required") Integer getCreditHours() {
         return creditHours;
     }
 
@@ -26,7 +29,7 @@ public class UpdateCourseRequest {
         return description;
     }
 
-    public @NotBlank(message = "Id is required") Long getId() {
+    public @NotNull(message = "Id is required") Long getId() {
         return id;
     }
 
@@ -37,7 +40,7 @@ public class UpdateCourseRequest {
     //setter
 
 
-    public void setCreditHours(@NotBlank(message = "CreditHours is Required") Integer creditHours) {
+    public void setCreditHours(@NotNull(message = "CreditHours is Required") Integer creditHours) {
         this.creditHours = creditHours;
     }
 
@@ -45,7 +48,7 @@ public class UpdateCourseRequest {
         this.description = description;
     }
 
-    public void setId(@NotBlank(message = "Id is required") Long id) {
+    public void setId(@NotNull(message = "Id is required") Long id) {
         this.id = id;
     }
 

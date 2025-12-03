@@ -1,6 +1,8 @@
 package com.sgr.ums.RequestModel;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class AddCourseRequest {
 
@@ -10,14 +12,15 @@ public class AddCourseRequest {
     @NotBlank(message = "Description is Required ")
     private String description;
 
-    @NotBlank(message = "CreditHours is Required")
+    @NotNull(message = "CreditHours is required")
+    @Min(value = 1, message = "CreditHours must be at least 1")
     private Integer creditHours;
 
 
     //getter
 
 
-    public @NotBlank(message = "CreditHours is Required") Integer getCreditHours() {
+    public @NotNull(message = "CreditHours is Required") Integer getCreditHours() {
         return creditHours;
     }
 
@@ -33,7 +36,7 @@ public class AddCourseRequest {
     //setter
 
 
-    public void setCreditHours(@NotBlank(message = "CreditHours is Required") Integer creditHours) {
+    public void setCreditHours(@NotNull(message = "CreditHours is Required") Integer creditHours) {
         this.creditHours = creditHours;
     }
 

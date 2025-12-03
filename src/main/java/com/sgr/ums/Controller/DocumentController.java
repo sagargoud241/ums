@@ -1,7 +1,9 @@
 package com.sgr.ums.Controller;
 
+import com.sgr.ums.Entity.Course;
 import com.sgr.ums.Entity.Document;
 import com.sgr.ums.RequestModel.AddDocumentRequest;
+import com.sgr.ums.RequestModel.ListDocumentRequest;
 import com.sgr.ums.RequestModel.UpdateDocumentRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
 import com.sgr.ums.ResponseModel.FileUploadResponse;
@@ -18,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -90,6 +94,55 @@ public class DocumentController {
         }
     }
 
+    @PostMapping("/list/base64")
+    public ResponseEntity<ApiResponse<List<Document>>> addDocs(@RequestBody List<AddDocumentRequest> requests) throws IOException {
+
+        List<ListDocumentRequest> fileList = new ArrayList<>();
+
+        for (AddDocumentRequest req : requests) {
+
+            if (req.getBase64Data() == null || req.getFileName() == null) {
+                log.error("INVALID BASE64 OR FILENAME: {}", JsonUtils.toJson(req));
+                return ResponseEntity.ok(ApiResponse.failure("Missing base64Data or fileName"));
+            }
+
+            log.info("Uploading Base64 file: {}", req.getFileName());
+
+            FileUploadResponse fileUploadresponse =
+                    fileService.uploadBase64File(req.getBase64Data(), req.getFileName());
+
+            if (fileUploadresponse == null) {
+                log.error("Base64 upload failed for file: {}", req.getFileName());
+                return ResponseEntity.ok(ApiResponse.failure("Base64 upload failed"));
+            }
+            ListDocumentRequest file=new ListDocumentRequest();
+
+            file.setFileName(fileUploadresponse.getFileName());
+            file.setExtension(fileUploadresponse.getExtension());
+            file.setSizeBytes(fileUploadresponse.getSizeBytes());
+            file.setSizeReadable(fileUploadresponse.getSizeReadable());
+            file.setMimeType(fileUploadresponse.getMimeType());
+            file.setOriginalFileName(fileUploadresponse.getOriginalFileName());
+            file.setSavedPath(fileUploadresponse.getSavedPath());
+
+            file.setFileName(req.getFileName());
+            file.setFileType(req.getFileType());
+            file.setAssociationTo(req.getAssociationTo());
+            file.setAssociationId(req.getAssociationId());
+            fileList.add(file);
+
+        }
+
+        if (fileList != null) {
+            log.info("Adding Base64 is starting{}",JsonUtils.toJson(fileList));
+
+            return ResponseEntity.ok(documentService.addDocsList(fileList));
+        } else {
+            log.error("Please Upload Base64 Document");
+            return ResponseEntity.ok(ApiResponse.failure("Please upload document"));
+        }
+    }
+
 
     @PutMapping("/base64")
     public ResponseEntity<ApiResponse<Document>> updatebase64Document(@RequestBody UpdateDocumentRequest request) throws IOException {
@@ -116,6 +169,85 @@ public class DocumentController {
             return ResponseEntity.ok(ApiResponse.failure("Please upload document"));
         }
     }
+
+    @PutMapping("/base64/list")
+    public ResponseEntity<ApiResponse<List<Document>>> updateBase64Documents(@RequestBody List<UpdateDocumentRequest> requestList) throws IOException {
+
+        log.info("Multiple Base64 update request: {}", JsonUtils.toJson(requestList));
+        List<ListDocumentRequest> updatedDocuments = new ArrayList<>();
+
+        //List<Document> updatedDocuments = new ArrayList<>();
+
+        for (UpdateDocumentRequest request : requestList) {
+            try {
+                // 1. Upload Base64 File
+                FileUploadResponse fileResponse = fileService.uploadBase64File(
+                        request.getBase64Data(),
+                        request.getFileName()
+                );
+
+                if (fileResponse == null) {
+                    log.error("Base64 upload failed for request: {}", request);
+                    continue;
+                }
+                if (fileResponse == null) {
+                    log.error("Base64 upload failed for file: {}", request.getFileName());
+                    return ResponseEntity.ok(ApiResponse.failure("Base64 upload failed"));
+                }
+                ListDocumentRequest file=new ListDocumentRequest();
+
+                file.setFileName(fileResponse.getFileName());
+                file.setExtension(fileResponse.getExtension());
+                file.setSizeBytes(fileResponse.getSizeBytes());
+                file.setSizeReadable(fileResponse.getSizeReadable());
+                file.setMimeType(fileResponse.getMimeType());
+                file.setOriginalFileName(fileResponse.getOriginalFileName());
+                file.setSavedPath(fileResponse.getSavedPath());
+
+                file.setId(request.getId());
+                file.setFileName(request.getFileName());
+                file.setFileType(request.getFileType());
+                file.setAssociationTo(request.getAssociationTo());
+                file.setAssociationId(request.getAssociationId());
+                updatedDocuments.add(file);
+
+//                // 2. Inactivate old document
+//                ApiResponse<Document> inactivateResponse = documentService.inActivateDocument(request);
+//
+//                if (inactivateResponse == null || !"success".equals(inactivateResponse.getCode())) {
+//                    log.error("Failed to inactivate document for request: {}", request);
+//                    continue;
+//                }
+//
+//                // 3. Prepare AddDocumentRequest for new upload entry
+//                AddDocumentRequest addRequest = new AddDocumentRequest();
+//                addRequest.setAssociationId(request.getAssociationId());
+//                addRequest.setAssociationTo(request.getAssociationTo());
+//                addRequest.setFileType(request.getFileType());
+//
+//                // 4. Add new document entry
+//                ApiResponse<Document> addResponse = documentService.addDocument(fileResponse, addRequest);
+//
+//                if (addResponse != null && "success".equals(addResponse.getCode())) {
+//                    updatedDocuments.add(addResponse.getData());
+//                }
+
+            } catch (Exception e) {
+                log.error("Error processing update request: {}", request, e);
+            }
+        }
+
+        if (updatedDocuments != null) {
+            log.info("updated Documents Base64 is starting{}",JsonUtils.toJson(updatedDocuments));
+            return ResponseEntity.ok(documentService.updateDocsList(updatedDocuments));
+        } else {
+            log.error("Please Upload Base64 Document");
+            return ResponseEntity.ok(ApiResponse.failure("Please upload document"));
+        }
+
+       // return ResponseEntity.ok(ApiResponse.success(updatedDocuments, "Documents updated successfully"));
+    }
+
 
 
     @GetMapping("/id/{id}")
