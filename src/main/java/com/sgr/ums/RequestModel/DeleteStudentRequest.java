@@ -1,11 +1,12 @@
 package com.sgr.ums.RequestModel;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class DeleteStudentRequest {
 
 
-    @NotBlank(message = "Id is Required")
+    @NotNull(message = "Id is Required")
     private Long id;
 
     @NotBlank(message="remarks is Required ")
@@ -13,7 +14,7 @@ public class DeleteStudentRequest {
 
 
     //getter
-    public @NotBlank(message = "Id is Required") Long getId() {return id;}
+    public @NotNull(message = "Id is Required") Long getId() {return id;}
 
     public @NotBlank(message = "remarks is Required ") String getRemarks() {return remarks;}
 
@@ -21,7 +22,7 @@ public class DeleteStudentRequest {
 
     //setter
 
-    public void setId(@NotBlank(message = "Id is Required") Long id) {this.id = id;}
+    public void setId(@NotNull(message = "Id is Required") Long id) {this.id = id;}
 
     public void setRemarks(@NotBlank(message = "remarks is Required ") String remarks) {this.remarks = remarks;}
 

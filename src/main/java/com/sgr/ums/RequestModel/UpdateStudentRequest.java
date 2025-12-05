@@ -1,10 +1,11 @@
 package com.sgr.ums.RequestModel;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class UpdateStudentRequest {
 
-    @NotBlank(message = "Id is Required")
+    @NotNull(message = "Id is Required")
     private Long id;
 
     @NotBlank(message = "Name is Required ")
@@ -14,7 +15,7 @@ public class UpdateStudentRequest {
     private String email;
 
 
-    @NotBlank(message = "Age is Required")
+    @NotNull(message = "Age is Required")
     private  Integer age;
 
     @NotBlank(message = "UpdateBy is Required")
@@ -22,11 +23,11 @@ public class UpdateStudentRequest {
 
     //getter
 
-    public @NotBlank(message = "Age is Required") Integer getAge() {return age;}
+    public @NotNull(message = "Age is Required") Integer getAge() {return age;}
 
     public @NotBlank(message = "Email is Required ") String getEmail() {return email;}
 
-    public @NotBlank(message = "Id is Required") Long getId() {return id;}
+    public @NotNull(message = "Id is Required") Long getId() {return id;}
 
     public @NotBlank(message = "Name is Required ") String getName() {return name;}
 
@@ -38,11 +39,11 @@ public class UpdateStudentRequest {
     //setter
 
 
-    public void setAge(@NotBlank(message = "Age is Required") Integer age) {this.age = age;}
+    public void setAge(@NotNull(message = "Age is Required") Integer age) {this.age = age;}
 
     public void setEmail(@NotBlank(message = "Email is Required ") String email) {this.email=email;}
 
-    public void setId(@NotBlank(message = "Id is Required") Long id) {this.id = id;}
+    public void setId(@NotNull(message = "Id is Required") Long id) {this.id = id;}
 
     public void setName(@NotBlank(message = "Name is Required ") String name) {this.name = name;}
 

@@ -92,7 +92,7 @@ public class CourseServiceImpl implements CourseService {
             course.setUpdatedDate(LocalDateTime.now());
             course.setActive(false);
             course.setDeleted(true);
-            courseRepository.delete(course);
+            courseRepository.save(course);
             return ApiResponse.success(null, "Delete SuccessFully");
         } catch (Exception e) {
             log.error("Exception while delete course", e.getMessage());

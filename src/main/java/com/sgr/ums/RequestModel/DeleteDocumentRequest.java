@@ -1,10 +1,11 @@
 package com.sgr.ums.RequestModel;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class DeleteDocumentRequest {
 
-    @NotBlank(message = "Id is Required")
+    @NotNull(message = "Id is Required")
     private Long id;
 
     @NotBlank(message = "Remarks is Required")
@@ -12,11 +13,11 @@ public class DeleteDocumentRequest {
 
 
 
-    public @NotBlank(message = "Id is Required") Long getId() {
+    public @NotNull(message = "Id is Required") Long getId() {
         return id;
     }
 
-    public void setId(@NotBlank(message = "Id is Required") Long id) {
+    public void setId(@NotNull(message = "Id is Required") Long id) {
         this.id = id;
     }
 

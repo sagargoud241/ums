@@ -1,6 +1,7 @@
 package com.sgr.ums.RequestModel;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class AddStudentRequest {
 
@@ -11,7 +12,7 @@ public class AddStudentRequest {
     @NotBlank(message="Email is Required ")
     private String email;
 
-    @NotBlank(message = "Age is Required")
+    @NotNull(message = "Age is Required")
     private  Integer age;
 
 
@@ -19,7 +20,7 @@ public class AddStudentRequest {
 
     //getter
 
-    public @NotBlank Integer getAge() {return age;}
+    public @NotNull Integer getAge() {return age;}
 
     public @NotBlank String getEmail() {return email;}
 

@@ -1,10 +1,11 @@
 package com.sgr.ums.RequestModel;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class UpdateDocumentRequest {
 
-    @NotBlank(message = "ID is Required")
+    @NotNull(message = "ID is Required")
     private long id;
 
     @NotBlank(message = "FileType is Required")
@@ -13,7 +14,7 @@ public class UpdateDocumentRequest {
     @NotBlank(message = "AssociationTo is Required")
     private String associationTo;
 
-    @NotBlank(message = "AssociationId is Required")
+    @NotNull(message = "AssociationId is Required")
     private String associationId;
 
 
@@ -45,11 +46,11 @@ public class UpdateDocumentRequest {
         this.fileType = fileType;
     }
 
-    public @NotBlank(message = "AssociationId is Required") String getAssociationId() {
+    public @NotNull(message = "AssociationId is Required") String getAssociationId() {
         return associationId;
     }
 
-    public void setAssociationId(@NotBlank(message = "AssociationId is Required") String associationId) {
+    public void setAssociationId(@NotNull(message = "AssociationId is Required") String associationId) {
         this.associationId = associationId;
     }
 
@@ -61,11 +62,11 @@ public class UpdateDocumentRequest {
         this.associationTo = associationTo;
     }
 
-    public @NotBlank(message = "ID is Required") long getId() {
+    public @NotNull(message = "ID is Required") long getId() {
         return id;
     }
 
-    public void setId(@NotBlank(message = "ID is Required") long id) {
+    public void setId(@NotNull(message = "ID is Required") long id) {
         this.id = id;
     }
 

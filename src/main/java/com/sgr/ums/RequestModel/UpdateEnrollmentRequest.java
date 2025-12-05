@@ -2,6 +2,7 @@ package com.sgr.ums.RequestModel;
 
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -9,33 +10,33 @@ import java.time.LocalDate;
 public class UpdateEnrollmentRequest {
 
 
-    @NotBlank(message = "Id is Required")
+    @NotNull(message = "Id is Required")
     private Long id;
 
-    @NotBlank(message = "StudentId is Required")
+    @NotNull(message = "StudentId is Required")
     private Long studentId;
 
-    @NotBlank(message = "CourseId is Required")
+    @NotNull(message = "CourseId is Required")
     private Long courseId;
 
-    @NotBlank(message = "EnrolledDate is Required")
+    @NotNull(message = "EnrolledDate is Required")
     private LocalDate enrolledDate;
 
     //getter
 
-    public @NotBlank(message = "CourseId is Required") Long getCourseId() {
+    public @NotNull(message = "CourseId is Required") Long getCourseId() {
         return courseId;
     }
 
-    public @NotBlank(message = "EnrolledDate is Required") LocalDate getEnrolledDate() {
+    public @NotNull(message = "EnrolledDate is Required") LocalDate getEnrolledDate() {
         return enrolledDate;
     }
 
-    public @NotBlank(message = "Id is Required") Long getId() {
+    public @NotNull(message = "Id is Required") Long getId() {
         return id;
     }
 
-    public @NotBlank(message = "StudentId is Required") Long getStudentId() {
+    public @NotNull(message = "StudentId is Required") Long getStudentId() {
         return studentId;
     }
 
@@ -43,19 +44,19 @@ public class UpdateEnrollmentRequest {
     //setter
 
 
-    public void setCourseId(@NotBlank(message = "CourseId is Required") Long courseId) {
+    public void setCourseId(@NotNull(message = "CourseId is Required") Long courseId) {
         this.courseId = courseId;
     }
 
-    public void setEnrolledDate(@NotBlank(message = "EnrolledDate is Required") LocalDate enrolledDate) {
+    public void setEnrolledDate(@NotNull(message = "EnrolledDate is Required") LocalDate enrolledDate) {
         this.enrolledDate = enrolledDate;
     }
 
-    public void setId(@NotBlank(message = "Id is Required") Long id) {
+    public void setId(@NotNull(message = "Id is Required") Long id) {
         this.id = id;
     }
 
-    public void setStudentId(@NotBlank(message = "StudentId is Required") Long studentId) {
+    public void setStudentId(@NotNull(message = "StudentId is Required") Long studentId) {
         this.studentId = studentId;
     }
 

@@ -183,3 +183,124 @@ FROM employee e
 INNER JOIN department d
 ON e.dept_id = d.dept_id;
 
+//find the all stuents where enrollment is done
+select s.name,s.email,s.age,e.is_active
+from student s
+inner join enrollment e
+on s.id=e.id
+where e.is_active ='true';
+
+
+//find the all stuents where enrollment is  not done
+select s.name,s.email,s.age,e.is_active
+from student s
+inner join enrollment e
+on s.id=e.id
+where e.is_active ='false';
+
+//find the student with  enrollment is enrollment (yes/no)
+select s.name,s.email,s.age,
+case
+when count(e.student_id)>0 then 'yes'
+else 'no'
+end as enrollment_status
+from student s
+left join enrollment e
+on s.id=e.student_id
+group by s.name,s.email,s.age;
+
+//find the student without enrollment is enrollment (yes/no)
+SELECT
+s.name,
+s.email,
+s.age,
+'NO' AS enrollment_status
+FROM student s
+LEFT JOIN enrollment e
+ON s.id = e.student_id
+WHERE e.student_id IS NULL;
+
+//find the all course where enrollment is done
+SELECT c.* course,e.is_active as entrollment_is_active
+FROM course c
+left join enrollment e
+on c.id=e.course_id
+where e.is_active='true' order by id asc
+
+//find the all course where enrollment is done
+SELECT c.* course,e.is_active as entrollment_is_active
+FROM course c
+left join enrollment e
+on c.id=e.course_id
+where e.is_active='false' order by id asc
+
+
+//find the all course where enrollment is enrollment (yes/no)
+select c.*course,
+case
+when (e.course_id)>0 then 'yes'
+else 'no'
+end as enrollment_status
+from course c
+left join enrollment e
+on c.id=e.course_id
+
+
+//find the all course where enrollment is enrollment (yes/no) only who is active
+select c.*course,
+case
+when (e.course_id)>0 then 'yes'
+else 'no'
+end as enrollment_status
+from course c
+left join enrollment e
+on c.id=e.course_id
+where e.is_active='true' order by id asc
+
+//find the all course where enrollment is enrollment ( yes / no ) only who is unactive 
+select c.* course,
+case
+when (e.course_id)>0 then 'yes'
+else 'no'
+end as enrollment_status
+from course c
+left join  enrolment e
+on  c.id=e.course_id;
+
+//find the all student which relation with enrollment and course
+select s.*student,e.is_active,c.title as course_title,
+case
+when (e.student_id)>0 then 'yes'
+else 'no'
+end as enrollment_status
+from student s
+inner join enrollment e
+on s.id=e.Student_id
+inner join course c
+on c.id=e.course_id
+where e.is_active='true' order by id asc  ---->   1.is_active='true'--> relation with all
+                                                  2.is_active='false'-->  no relation with all
+
+
+//find the all course which relation with enrollment and student
+select c.*course,e.is_active,s.id as Student_id,s.name as Student_name
+from course c
+inner join enrollment e
+on c.id=e.course_id
+inner join student s
+on s.id= e.student_id order by id asc
+
+//1. List all students with total number of enrollments
+select s.*,count(e.id)as total_enrollments
+from student s
+left join enrollment e
+on s.id=e.student_id
+group by s.id order by total_enrollments desc
+
+//2. Find students who are enrolled in more than one course
+select s.*, count(e.id) as total_enrollments
+from student s
+left join enrollment e
+on s.id=e.student_id
+group by s.id
+having count (e.id)>1
