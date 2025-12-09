@@ -54,7 +54,7 @@ public class DocumentServiceImpl implements DocumentService {
             documentRepository.save(document);
             return ApiResponse.success(document, "Add SuccessFully");
         } catch (Exception e) {
-            log.error("Exception while add document", e.getMessage());
+            log.error("Exception in addDocument;{}", e.getMessage());
             return ApiResponse.exception(e.getMessage());
         }
     }
@@ -94,7 +94,7 @@ public class DocumentServiceImpl implements DocumentService {
             }
             return ApiResponse.success(optional.get(), "Fetch SuccessFully");
         } catch (Exception e) {
-            log.error("Exception while get document by uuid", e.getMessage());
+            log.error("Exception while get document by uuid;{}", e.getMessage());
             return ApiResponse.exception(e.getMessage());
         }
     }
@@ -109,12 +109,12 @@ public class DocumentServiceImpl implements DocumentService {
                 return ApiResponse.failure("Document not Found");
             }
             if (optional.get().getDeleted()) {
-                log.error("Document is already delete");
+                log.error("Document is alreadyDelete");
                 return ApiResponse.failure("Document not Found");
             }
             return ApiResponse.success(optional.get(), "Fetch SuccessFully");
         } catch (Exception e) {
-            log.error("Exception while get document by fileName", e.getMessage());
+            log.error("Exception while get document by fileName;{}", e.getMessage());
             return ApiResponse.exception(e.getMessage());
         }
     }
