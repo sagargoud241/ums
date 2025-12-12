@@ -1,5 +1,8 @@
 package com.sgr.ums.ResponseModel;
 
+import com.sgr.ums.Entity.Book;
+import org.springframework.http.ResponseEntity;
+
 public class ApiResponse <T>{
     private String code;
     private String message;
@@ -14,7 +17,6 @@ public class ApiResponse <T>{
         this.message = message;
         this.data = data;
     }
-
 
     // --- Getters ---
     public String getCode() {
