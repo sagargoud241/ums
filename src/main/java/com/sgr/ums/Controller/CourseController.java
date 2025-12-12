@@ -53,7 +53,6 @@ public class CourseController {
         return ResponseEntity.ok(courseService.deleteCoursesInList(requests));
     }
 
-
     @GetMapping("/{id}")
     ResponseEntity<ApiResponse<Course>>getCourseById(@PathVariable Long id){
         return ResponseEntity.ok(courseService.getCourseById(id));
