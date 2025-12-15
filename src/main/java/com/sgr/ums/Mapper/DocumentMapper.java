@@ -1,7 +1,7 @@
 package com.sgr.ums.Mapper;
 import com.sgr.ums.Entity.Document;
-import com.sgr.ums.RequestModel.AddDocumentRequest;
-import com.sgr.ums.RequestModel.UpdateDocumentRequest;
+import com.sgr.ums.RequestModel.DocumentRequestModel.AddDocumentRequest;
+import com.sgr.ums.RequestModel.DocumentRequestModel.UpdateDocumentRequest;
 
 public class DocumentMapper {
     public static Document addDocument(AddDocumentRequest request) {

@@ -1,6 +1,5 @@
 package com.sgr.ums.Controller;
-
-import com.sgr.ums.Services.HtmlConvertService;
+import com.sgr.ums.Services.HtmlService.HtmlConvertService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

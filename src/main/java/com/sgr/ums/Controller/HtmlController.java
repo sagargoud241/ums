@@ -1,7 +1,7 @@
 package com.sgr.ums.Controller;
 
 import com.sgr.ums.RequestModel.HtmlRequest;
-import com.sgr.ums.Services.HtmlService;
+import com.sgr.ums.Services.HtmlService.HtmlService;
 import com.sgr.ums.Utilities.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

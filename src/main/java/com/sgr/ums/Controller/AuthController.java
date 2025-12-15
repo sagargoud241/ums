@@ -1,12 +1,9 @@
 package com.sgr.ums.Controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sgr.ums.Entity.User;
 import com.sgr.ums.RequestModel.LoginUserRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
-import com.sgr.ums.Services.UserService;
-import com.sgr.ums.UmsApplication;
+import com.sgr.ums.Services.UserService.UserService;
 import com.sgr.ums.Utilities.JsonUtils;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;

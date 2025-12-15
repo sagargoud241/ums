@@ -1,12 +1,12 @@
 package com.sgr.ums.Controller;
 
 import com.sgr.ums.Entity.User;
-import com.sgr.ums.RequestModel.AddUserRequest;
-import com.sgr.ums.RequestModel.DeleteUserRequest;
+import com.sgr.ums.RequestModel.UserRequestModel.AddUserRequest;
+import com.sgr.ums.RequestModel.UserRequestModel.DeleteUserRequest;
 import com.sgr.ums.RequestModel.LoginUserRequest;
-import com.sgr.ums.RequestModel.UpdateUserRequest;
+import com.sgr.ums.RequestModel.UserRequestModel.UpdateUserRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
-import com.sgr.ums.Services.UserService;
+import com.sgr.ums.Services.UserService.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

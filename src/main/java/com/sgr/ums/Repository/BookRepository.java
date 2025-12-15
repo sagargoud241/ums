@@ -1,18 +1,21 @@
 package com.sgr.ums.Repository;
 
 import com.sgr.ums.Entity.Book;
+import com.sgr.ums.dtointerfaces.BookInfo;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
     // CREATE
     @Modifying
@@ -140,6 +143,20 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             @Param("updatedBy") String updatedBy,
             @Param("updatedDate") LocalDateTime updatedDate
     );
+
+    @Query(
+            value = """
+        SELECT 
+            b.author AS author,
+            b.title  AS title,
+            b.price  AS price
+        FROM books b
+        INNER JOIN author a ON a.full_name = b.author
+        """,
+            nativeQuery = true
+    )
+    List<BookInfo> getBooks();
+
 
 }
 

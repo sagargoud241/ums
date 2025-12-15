@@ -1,5 +1,5 @@
 package com.sgr.ums.Controller;
-import com.sgr.ums.Services.FileService;
+import com.sgr.ums.Services.FileService.FileService;
 import com.sgr.ums.Utilities.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

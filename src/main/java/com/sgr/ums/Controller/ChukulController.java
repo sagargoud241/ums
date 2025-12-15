@@ -2,7 +2,7 @@ package com.sgr.ums.Controller;
 
 import com.sgr.ums.ResponseModel.HighLowResponse;
 import com.sgr.ums.ResponseModel.HistoryDataResponse;
-import com.sgr.ums.Services.ChukulService;
+import com.sgr.ums.Services.ChukulService.ChukulService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

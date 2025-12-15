@@ -5,7 +5,7 @@ import com.sgr.ums.RequestModel.ThirdPartyRequestModel.IdListRequest;
 import com.sgr.ums.RequestModel.ThirdPartyRequestModel.PatchThirdPartyRequest;
 import com.sgr.ums.RequestModel.ThirdPartyRequestModel.UpdateThirdPartyRequest;
 import com.sgr.ums.ResponseModel.ThirdPartyApiResponse;
-import com.sgr.ums.Services.ThirdPartyService;
+import com.sgr.ums.Services.ThirdPartyService.ThirdPartyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

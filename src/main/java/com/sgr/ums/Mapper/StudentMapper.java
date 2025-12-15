@@ -1,8 +1,8 @@
 package com.sgr.ums.Mapper;
 
 import com.sgr.ums.Entity.Student;
-import com.sgr.ums.RequestModel.AddStudentRequest;
-import com.sgr.ums.RequestModel.UpdateStudentRequest;
+import com.sgr.ums.RequestModel.StudentRequestModel.AddStudentRequest;
+import com.sgr.ums.RequestModel.StudentRequestModel.UpdateStudentRequest;
 
 public class StudentMapper {
     public static Student addStudent (AddStudentRequest request){

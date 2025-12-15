@@ -2,12 +2,12 @@ package com.sgr.ums.Controller;
 
 
 import com.sgr.ums.Entity.Book;
-import com.sgr.ums.Entity.Student;
 import com.sgr.ums.RequestModel.Book.AddBook;
 import com.sgr.ums.RequestModel.Book.DeleteBook;
 import com.sgr.ums.RequestModel.Book.UpdateBook;
 import com.sgr.ums.ResponseModel.ApiResponse;
-import com.sgr.ums.Services.BookService;
+import com.sgr.ums.Services.BookService.BookService;
+import com.sgr.ums.dtointerfaces.BookInfoDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +49,11 @@ public class BookController {
     @PutMapping("/update_Book")
     ResponseEntity<ApiResponse<Book>> updateBook(@Valid @RequestBody UpdateBook book) {
         return ResponseEntity.ok(bookService.updateBook(book));
+    }
+
+    @GetMapping("/get/bookinfo")
+    ResponseEntity<ApiResponse<List<BookInfoDto>>> getBookById() {
+        return ResponseEntity.ok(bookService.getBooks());
     }
 
 }

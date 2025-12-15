@@ -1,12 +1,12 @@
 package com.sgr.ums.Controller;
 
 import com.sgr.ums.Entity.Course;
-import com.sgr.ums.RequestModel.AddCourseRequest;
-import com.sgr.ums.RequestModel.DeleteCourseRequest;
+import com.sgr.ums.RequestModel.CourseRequestModel.AddCourseRequest;
+import com.sgr.ums.RequestModel.CourseRequestModel.DeleteCourseRequest;
 import com.sgr.ums.RequestModel.DeleteListCourseRequest;
-import com.sgr.ums.RequestModel.UpdateCourseRequest;
+import com.sgr.ums.RequestModel.CourseRequestModel.UpdateCourseRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
-import com.sgr.ums.Services.CourseService;
+import com.sgr.ums.Services.CourseService.CourseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

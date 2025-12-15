@@ -1,14 +1,13 @@
 package com.sgr.ums.Controller;
 
-import com.sgr.ums.Entity.Course;
 import com.sgr.ums.Entity.Document;
-import com.sgr.ums.RequestModel.AddDocumentRequest;
+import com.sgr.ums.RequestModel.DocumentRequestModel.AddDocumentRequest;
 import com.sgr.ums.RequestModel.ListDocumentRequest;
-import com.sgr.ums.RequestModel.UpdateDocumentRequest;
+import com.sgr.ums.RequestModel.DocumentRequestModel.UpdateDocumentRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
 import com.sgr.ums.ResponseModel.FileUploadResponse;
-import com.sgr.ums.Services.DocumentService;
-import com.sgr.ums.Services.FileService;
+import com.sgr.ums.Services.DocumentService.DocumentService;
+import com.sgr.ums.Services.FileService.FileService;
 import com.sgr.ums.Utilities.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

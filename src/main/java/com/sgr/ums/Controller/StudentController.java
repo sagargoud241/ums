@@ -1,11 +1,11 @@
 package com.sgr.ums.Controller;
 
 import com.sgr.ums.Entity.Student;
-import com.sgr.ums.RequestModel.AddStudentRequest;
-import com.sgr.ums.RequestModel.DeleteStudentRequest;
-import com.sgr.ums.RequestModel.UpdateStudentRequest;
+import com.sgr.ums.RequestModel.StudentRequestModel.AddStudentRequest;
+import com.sgr.ums.RequestModel.StudentRequestModel.DeleteStudentRequest;
+import com.sgr.ums.RequestModel.StudentRequestModel.UpdateStudentRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
-import com.sgr.ums.Services.StudentService;
+import com.sgr.ums.Services.StudentService.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,6 @@
 package com.sgr.ums.Authorization;
 
 import com.sgr.ums.Entity.User;
-import com.sgr.ums.Services.UserServiceImpl;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;

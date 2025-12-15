@@ -5,12 +5,13 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="author")
+@Table(name = "author")
 public class Author extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="Id")
-    private  long id;
+
+    @Column(name = "Id")
+    private long id;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -28,9 +29,19 @@ public class Author extends BaseEntity {
     private String email;
 
     @Column(name = "address", nullable = false)
-    private String  address;
+    private String address;
 
     @Column(name = "city", nullable = false)
     private String city;
 
+    @PrePersist
+    @PreUpdate
+    public void setFullName() {
+        this.fullName = String.join(" ",
+                firstName,
+                middleName == null ? "" : middleName,
+                lastName
+        ).replaceAll("\\s+", " ").trim();
+    }
 }
+

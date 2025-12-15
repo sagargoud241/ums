@@ -1,11 +1,11 @@
 package com.sgr.ums.Controller;
 
 import com.sgr.ums.Entity.Enrollment;
-import com.sgr.ums.RequestModel.AddEnrollmentRequest;
-import com.sgr.ums.RequestModel.DeleteEnrollmentRequest;
-import com.sgr.ums.RequestModel.UpdateEnrollmentRequest;
+import com.sgr.ums.RequestModel.EnrollmentRequestModel.AddEnrollmentRequest;
+import com.sgr.ums.RequestModel.EnrollmentRequestModel.DeleteEnrollmentRequest;
+import com.sgr.ums.RequestModel.EnrollmentRequestModel.UpdateEnrollmentRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
-import com.sgr.ums.Services.EnrollmentService;
+import com.sgr.ums.Services.EnrollmentService.EnrollmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

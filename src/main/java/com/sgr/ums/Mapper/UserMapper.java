@@ -1,8 +1,8 @@
 package com.sgr.ums.Mapper;
 
 import com.sgr.ums.Entity.User;
-import com.sgr.ums.RequestModel.AddUserRequest;
-import com.sgr.ums.RequestModel.UpdateUserRequest;
+import com.sgr.ums.RequestModel.UserRequestModel.AddUserRequest;
+import com.sgr.ums.RequestModel.UserRequestModel.UpdateUserRequest;
 
 public class UserMapper {
 
