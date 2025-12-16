@@ -42,6 +42,7 @@ public class AuthorServiceImpl implements AuthorService {
             author.setActive(true);
             author.setDeleted(false);
             authorRepository.save(author);
+
             return ApiResponse.success(author, "Add SuccessFully");
         } catch (Exception e) {
             log.error("Exception while Adding new Author:{}", e.getMessage(), e);

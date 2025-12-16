@@ -2,6 +2,10 @@ package com.sgr.ums.Services.UserService;
 
 
 import com.sgr.ums.Authorization.JwtUtil;
+import com.sgr.ums.Employees.Mapper.EmployeeDtoMapper;
+import com.sgr.ums.Employees.Model.Employee;
+import com.sgr.ums.Employees.Model.EmployeeResponse;
+import com.sgr.ums.Employees.config.EmployeesResponseMessages;
 import com.sgr.ums.Entity.User;
 import com.sgr.ums.Mapper.UserMapper;
 import com.sgr.ums.Repository.UserRepository;
@@ -12,6 +16,8 @@ import com.sgr.ums.RequestModel.UserRequestModel.UpdateUserRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
 import com.sgr.ums.Utilities.JsonUtils;
 import com.sgr.ums.Utilities.Utility;
+import com.sgr.ums.users.mappers.UserDtoMapper;
+import com.sgr.ums.users.models.UserResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -157,6 +163,21 @@ public class UserServiceImpl implements UserService {
         } else {
             return ApiResponse.failure("User not Found");
         }
+    }
+
+    @Override
+    public UserResponse findUserById(Long id) {
+        log.info("Finding the User by id:{}", JsonUtils.toJson(id));
+        UserResponse response = new UserResponse();
+        Optional<User> optional = userRepository.findById(id);
+        if (optional.isEmpty()) {
+            log.info("User not find  by id");
+            response.setMessage(EmployeesResponseMessages.NOT_AVAILABLE.toString());
+            return response;
+        }
+        response.setUser(UserDtoMapper.toDto(optional.get()));
+        response.setMessage(EmployeesResponseMessages.SUCCESS.toString());
+        return response;
     }
 
 

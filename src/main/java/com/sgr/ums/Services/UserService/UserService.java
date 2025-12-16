@@ -6,6 +6,7 @@ import com.sgr.ums.RequestModel.UserRequestModel.DeleteUserRequest;
 import com.sgr.ums.RequestModel.LoginUserRequest;
 import com.sgr.ums.RequestModel.UserRequestModel.UpdateUserRequest;
 import com.sgr.ums.ResponseModel.ApiResponse;
+import com.sgr.ums.users.models.UserResponse;
 import jakarta.validation.Valid;
 
 import java.util.UUID;
@@ -19,5 +20,7 @@ public interface UserService {
     ApiResponse<User>deleteUser(DeleteUserRequest request);
 
     ApiResponse<User> auth(@Valid LoginUserRequest request);
+
+    UserResponse findUserById(Long id);
 }
 
